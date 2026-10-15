@@ -6,6 +6,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { randomBytes, createHmac, timingSafeEqual } from 'node:crypto'
 import { readCatalog, validateChat, createForecast, buildRequest, extractReply } from './server/milo.mjs'
 import { validateReview, buildReviewRequest, extractReview } from './server/milo-review.mjs'
+import { MAX_CHAT_BODY_BYTES } from './server/milo-calendar.mjs'
 
 const ROOT = dirname(fileURLToPath(import.meta.url))
 const mime = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif', '.ico': 'image/x-icon', '.ttf': 'font/ttf', '.woff': 'font/woff', '.woff2': 'font/woff2', '.mp3': 'audio/mpeg' }
@@ -21,18 +22,18 @@ const errorMessage = {
     cancelled: 'Milo chưa trả lời kịp. Amy thử gọi anh lần nữa nha ♡',
 }
 
-async function bodyJSON(request) {
+async function bodyJSON(request, maxBytes = 64 * 1024) {
     if (!request.headers['content-type']?.startsWith('application/json')) throw new Error('invalid_body')
     // Vercel may have already consumed the stream and populated its body helper.
     if (request.body !== undefined) {
         const raw = typeof request.body === 'string' || Buffer.isBuffer(request.body) ? request.body : JSON.stringify(request.body)
-        if (!raw || Buffer.byteLength(raw) > 64 * 1024) throw new Error('invalid_body')
+        if (!raw || Buffer.byteLength(raw) > maxBytes) throw new Error('invalid_body')
         try { return JSON.parse(String(raw)) } catch (_) { throw new Error('invalid_body') }
     }
     let size = 0, chunks = []
     for await (const chunk of request) {
         size += chunk.length
-        if (size > 64 * 1024) throw new Error('invalid_body')
+        if (size > maxBytes) throw new Error('invalid_body')
         chunks.push(chunk)
     }
     try { return JSON.parse(Buffer.concat(chunks).toString('utf8')) } catch (_) { throw new Error('invalid_body') }
@@ -87,7 +88,7 @@ export async function createMiloHandler({ root = ROOT, apiKey = '', model = 'gpt
             }
             if (!apiKey) { json(response, 503, { error: 'not_configured', message: errorMessage.unavailable }); return }
             let input
-            try { input = (isReview ? validateReview : validateChat)(await bodyJSON(request), catalog) } catch (_) {
+            try { input = (isReview ? validateReview : validateChat)(await bodyJSON(request, isReview ? 64 * 1024 : MAX_CHAT_BODY_BYTES), catalog) } catch (_) {
                 json(response, 400, { error: isReview ? 'invalid_review' : 'invalid_chat', message: isReview ? 'Amy chọn đủ ngày, giờ, quán ăn và ít nhất một hoạt động rồi gọi Milo nha ♡' : errorMessage.invalid }); return
             }
             const now = Date.now(), ip = (trustProxy && request.headers['x-vercel-forwarded-for']?.split(',')[0].trim()) || request.socket.remoteAddress

@@ -87,18 +87,17 @@
         const item = entry()
         const result = item?.result
         openButton.disabled = pending
-        openButton.textContent = pending ? 'Milo đang ngó lịch hẹn…' : result ? 'Xem lời nhắn của Milo ♡' : 'Milo góp ý xíu ♡'
+        openButton.textContent = pending ? 'Đang xem…' : result ? 'Xem góp ý ♡' : item ? 'Thử lại ♡' : 'Gọi Milo ♡'
         openButton.setAttribute('aria-busy', String(pending))
-        refreshButton.hidden = pending || !item
+        refreshButton.hidden = pending || !result
         stopButton.hidden = !pending
-        byId('review-comment').hidden = !result
-        renderComment(byId('review-comment'), result?.comment)
-        renderSources(byId('review-sources'), result?.sources)
-        byId('review-status').textContent = pending ? 'Gâu gâu~ Milo đang xem thời gian, thời tiết và các điểm hẹn của Amy 🐾'
-            : item?.status === 'applied' ? 'Đã sửa theo ý Amy rồiii ♡ Lời nhắn dưới đây là góp ý trước khi chỉnh; bản đồ & PDF tải tiếp theo dùng lịch mới nha.'
-            : item?.status === 'dismissed' ? 'Mình giữ lịch Amy chọn nha ♡ Góp ý vẫn ở đây nếu Amy muốn ngó lại.'
-            : result ? 'Milo có lời nhắn cho Kiki nè ♡ Amy xem rồi quyết định nha.'
-            : item?.message || 'Lịch hẹn sẵn rồi, gọi Milo góp ý xíu nha ♡'
+        // Full advice and sources live in the popup; cached older errors stay concise too.
+        byId('review-status').textContent = pending ? 'Đợi Milo xíu nha 🐾'
+            : item?.status === 'applied' ? 'Đã cập nhật theo ý Amy ♡'
+            : item?.status === 'dismissed' ? 'Giữ lịch Amy chọn ♡'
+            : result ? 'Có lời nhắn cho Amy ♡'
+            : item?.status === 'failed' ? 'Milo chưa xem được, thử lại nha ♡'
+            : 'Gọi Milo ngó xíu nha ♡'
     }
     function label(field, plan) {
         if (field === 'date') {

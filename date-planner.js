@@ -8,6 +8,7 @@
     const retryButton = document.getElementById('weather-retry')
     const weatherStatus = document.getElementById('weather-status')
     const weatherDialog = document.getElementById('weather-dialog')
+    const stepper = document.querySelector('.stepper')
     const validId = (items, value) => items.some(item => item.id === value) ? value : ''
     const saved = window.AmyState.getDraft() || {}
     const state = {
@@ -142,7 +143,19 @@
         window.dispatchEvent(new CustomEvent('amy:planner-context'))
     }
     function updateNavigation() {
-        nextButton.disabled = !complete()[state.step]
+        const completed = complete()
+        const firstIncomplete = completed.findIndex(value => !value)
+        const availableStep = firstIncomplete === -1 ? 3 : firstIncomplete
+        stepper.querySelectorAll('li').forEach(item => {
+            const step = Number(item.dataset.step)
+            const button = item.querySelector('.step-button')
+            item.classList.toggle('done', completed[step])
+            item.classList.toggle('is-current', step === state.step)
+            button.disabled = step > availableStep
+            if (step === state.step) button.setAttribute('aria-current', 'step')
+            else button.removeAttribute('aria-current')
+        })
+        nextButton.disabled = !completed[state.step]
         nextButton.textContent = state.step === 3 ? 'Xem lịch hẹn 💗' : 'Tiếp nè ♡ →'
         backButton.hidden = state.step === 0
         document.getElementById('step-count').textContent = `${Math.min(state.step + 1, 4)} / 4`
@@ -157,12 +170,6 @@
         form.hidden = isRecap
         recap.hidden = !isRecap
         document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = Number(panel.dataset.panel) !== state.step })
-        document.querySelectorAll('.stepper li').forEach(item => {
-            const step = Number(item.dataset.step)
-            item.classList.toggle('done', step < state.step)
-            if (step === state.step) item.setAttribute('aria-current', 'step')
-            else item.removeAttribute('aria-current')
-        })
         updateNavigation()
         if (isRecap) {
             renderRecap()
@@ -193,12 +200,25 @@
         if (complete()[state.step]) { state.step++; showStep(true) }
     })
     backButton.addEventListener('click', () => { state.step = Math.max(0, state.step - 1); showStep(true) })
-    document.getElementById('edit-choices').addEventListener('click', () => {
-        state.step = 0
+    function clearRecapFeedback() {
         document.getElementById('copy-status').textContent = ''
         document.getElementById('manual-copy').hidden = true
+        document.getElementById('manual-copy').value = ''
         document.getElementById('manual-copy-label').hidden = true
         document.getElementById('pdf-status').hidden = true
+    }
+    stepper.addEventListener('click', event => {
+        const button = event.target.closest('.step-button')
+        if (!button || button.disabled) return
+        const step = Number(button.closest('li').dataset.step)
+        if (step === state.step) return
+        state.step = step
+        clearRecapFeedback()
+        showStep(true)
+    })
+    document.getElementById('edit-choices').addEventListener('click', () => {
+        state.step = 0
+        clearRecapFeedback()
         showStep(true)
     })
 

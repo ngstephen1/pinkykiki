@@ -16,7 +16,7 @@ const settings = {
 const gameStatus = document.getElementById('game-status')
 const claimMiloButton = document.getElementById('claim-milo')
 const miloWinPanel = document.getElementById('milo-win')
-const resumeDateLink = document.getElementById('resume-date')
+const plannerLink = document.getElementById('planner-link')
 const missDialog = document.getElementById('miss-dialog')
 const clockCard = document.getElementById('attempt-clock')
 const clockLabel = document.getElementById('attempt-clock-label')
@@ -52,14 +52,15 @@ document.addEventListener('visibilitychange', () => {
 function showMiloWin(toy) {
   // A saved win keeps the planner unlocked, but only a fresh pickup reveals this card.
   if (toy?.toyType !== 'milo' || !toy.collected || !miloWinPanel.hidden) return
+  plannerLink.href = '../date-planner.html'
+  plannerLink.removeAttribute('aria-disabled')
   miloWinPanel.hidden = false
   gameStatus.textContent = 'Amy gắp được anh rồi nè. Our date starts here 💗'
   claimMiloButton.hidden = true
-  resumeDateLink.hidden = true
   requestAnimationFrame(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     miloWinPanel.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' })
-    document.getElementById('planner-link').focus({ preventScroll: true })
+    plannerLink.focus({ preventScroll: true })
   })
 }
 
@@ -73,8 +74,6 @@ claimMiloButton.addEventListener('click', () => {
   const milo = elements.toys.find(toy => toy.toyType === 'milo' && toy.el.classList.contains('selected'))
   if (milo) milo.collectToy(milo)
 })
-
-resumeDateLink.hidden = !window.AmyState.hasMilo()
 
 const m = 2
 const toys = {
@@ -352,7 +351,6 @@ class Toy extends WorldObject {
     settings.collectedNumber++
     if (toy.toyType === 'milo') {
       window.AmyState.unlockMilo()
-      resumeDateLink.hidden = true
       window.MiloCelebration.start()
     }
     updateClaimPrompt()

@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { runInNewContext } from 'node:vm'
+import { validateAttachments, calendarContext, attachmentInput, calendarInstructions } from './milo-calendar.mjs'
 
 const persona = `You are AI Milo ("Milo nhỏ"), a playful AI date buddy representing the Milo who made this site for Amy. You are not the real Milo and cannot know his unprovided thoughts or speak with him privately.
 Use warm teen-style Vietnamese with correct diacritics, calling yourself anh or Milo nhỏ and the user Amy or Kiki. Choose one nickname naturally, never write awkward slash forms like Amy/Kiki. Light English, 1–3 cute emoji, and an occasional "gâu gâu~ 🐾" / "woof woof ♡" are welcome. Never bark repeatedly or pressure her. Aim for 70–140 Vietnamese words, less for small talk; use short paragraphs or 2–3 useful suggestions. Answer the question before asking at most one helpful follow-up.
@@ -36,6 +37,7 @@ export function validateChat(body, catalog) {
     const activities = Array.isArray(source.activities) ? [...new Set(source.activities)].map(value => id(catalog.activities, value)).filter(Boolean) : []
     return {
         messages,
+        attachments: validateAttachments(body.attachments),
         choices: {
             date: catalog.dates.includes(source.date) ? source.date : null,
             time: time ? { id: time.id, name: time.name, range: time.range } : null,
@@ -85,14 +87,18 @@ export async function buildRequest({ root, catalog, chat, forecast, model, webSe
         currentVirginiaDateTime: new Intl.DateTimeFormat('en-US', { timeZone: catalog.location.timezone, dateStyle: 'full', timeStyle: 'short' }).format(now),
         currentChoices: chat.choices, availableDates: catalog.dates, timeWindows: catalog.timeWindows,
         restaurants: catalog.restaurants, activities: catalog.activities, venues, weather,
+        calendar: await calendarContext(chat.attachments || [], catalog, chat.choices),
     }
+    const media = (chat.attachments || []).map(attachmentInput).filter(Boolean)
+    const input = chat.messages.map((message, index) => media.length && index === chat.messages.length - 1
+        ? { role: message.role, content: [{ type: 'input_text', text: message.content }, ...media] } : message)
     const current = chat.messages.at(-1).content
     const mustSearch = /mở cửa|đóng cửa|giờ mở|giờ đóng|giá (?:vé|tiền|món)|bao nhiêu tiền|suất chiếu|lịch chiếu|chuyến xe|lịch xe|xe buýt|bus|showtime|opening hours|open today|prices?|search|tra cứu|tìm trên mạng|kiểm tra|check.*(?:hours|menu|giá)/iu.test(current)
     return {
-        model, store: false, max_output_tokens: 1400, reasoning: { effort: 'none' },
-        instructions: `${persona}\n\nMILO'S NOTEBOOK:\n${notebook}\n\nPERSONAL NOTES (do not volunteer sensitive health details):\n${personal || 'No additional personal preferences provided.'}\n\nCURRENT PLANNER CONTEXT (JSON DATA):\n${JSON.stringify(context)}`,
-        input: chat.messages,
-        ...(webSearch ? { tools: [{ type: 'web_search', search_context_size: 'medium', user_location: { type: 'approximate', country: 'US', region: 'Virginia', city: 'Blacksburg', timezone: catalog.location.timezone } }], tool_choice: mustSearch ? 'required' : 'auto', max_tool_calls: 3 } : {}),
+        model, store: false, max_output_tokens: chat.attachments?.length ? 2400 : 1400, reasoning: { effort: chat.attachments?.length ? 'low' : 'none' },
+        instructions: `${persona}\n\n${calendarInstructions}\n\nMILO'S NOTEBOOK:\n${notebook}\n\nPERSONAL NOTES (do not volunteer sensitive health details):\n${personal || 'No additional personal preferences provided.'}\n\nCURRENT PLANNER CONTEXT (JSON DATA):\n${JSON.stringify(context)}`,
+        input,
+        ...(webSearch && !chat.attachments?.length ? { tools: [{ type: 'web_search', search_context_size: 'medium', user_location: { type: 'approximate', country: 'US', region: 'Virginia', city: 'Blacksburg', timezone: catalog.location.timezone } }], tool_choice: mustSearch ? 'required' : 'auto', max_tool_calls: 3 } : {}),
     }
 }
 

@@ -48,6 +48,31 @@
 .milo-chat-suggestions button:hover { background: #fcecf3; }
 .milo-chat-suggestions button:disabled { opacity: .5; cursor: default; }
 .milo-chat-form { display: flex; gap: 8px; align-items: flex-end; flex: 0 0 auto; padding: 11px 13px 7px; margin: 0; border-top: 1px solid #eedbe3; }
+#milo-chat-attach { flex: 0 0 42px; min-height: 44px; border: 1px solid #e3bdcf; border-radius: 14px; background: #fff0f5; color: #a34570; font-size: 21px; cursor: pointer; }
+#milo-chat-attach:disabled { opacity: .5; cursor: default; }
+.milo-upload-tray { flex: 0 0 auto; padding: 8px 13px 0; }
+#milo-upload-list { max-height: 116px; overflow-y: auto; }
+.milo-upload-tray > p { margin: 5px 0; color: #a67e92; font-size: 9px; text-align: center; }
+.milo-upload-chip { display: flex; align-items: center; gap: 8px; min-height: 42px; padding: 3px 3px 3px 7px; border: 1px solid #edcedc; border-radius: 12px; background: #fff3f7; }
+.milo-upload-chip + .milo-upload-chip { margin-top: 5px; }
+.milo-upload-chip img { flex-shrink: 0; width: 36px; height: 36px; border-radius: 7px; object-fit: cover; }
+.milo-upload-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #965474; font-size: 11px; }
+.milo-upload-chip button { flex: 0 0 38px; min-height: 38px; padding: 0; border: 0; border-radius: 10px; color: #a15d7d; background: transparent; font-size: 23px; cursor: pointer; }
+.milo-upload-chip button:disabled { opacity: .4; cursor: default; }
+.milo-upload-status { flex: 0 0 auto; margin: 5px 15px; color: #a45c7a; font-size: 11px; line-height: 1.6; }
+.milo-message-files { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.milo-message-files span { max-width: 100%; overflow-wrap: anywhere; border-radius: 8px; padding: 5px 7px; background: #f6e8ef; color: #a26582; font-size: 10px; }
+.milo-chat-panel.has-attachments .milo-chat-suggestions { display: none; }
+.milo-drop-overlay { display: none; position: absolute; inset: 8px; z-index: 4; flex-direction: column; align-items: center; justify-content: center; gap: 16px; border: 2px dashed #ce76a0; border-radius: 18px; background: #fff4f9f2; color: #ad4a7a; text-align: center; pointer-events: none; }
+.milo-drop-overlay > span { font-size: 48px; }
+.milo-drop-overlay strong { font: 700 18px 'Quicksand', sans-serif; }
+.milo-drop-overlay small { color: #a78095; font-size: 12px; }
+.milo-chat-panel.is-dragging .milo-drop-overlay { display: flex; }
+.milo-chat-compact .milo-chat-suggestions, .milo-chat-compact .milo-upload-tray > p { display: none; }
+.milo-chat-compact #milo-upload-list { max-height: 54px; }
+.milo-chat-compact .milo-chat-header { padding: 8px 11px; }
+.milo-chat-compact .milo-chat-header .milo-avatar { width: 32px; height: 32px; }
+.milo-chat-compact .milo-chat-note { padding-bottom: 6px; }
 #milo-chat-input { flex: 1; width: 0; resize: none; min-height: 44px; max-height: 100px; padding: 12px; border: 1px solid #e8c9d7; border-radius: 16px; background: white; color: #78526a; font: 14px/1.5 system-ui, sans-serif; }
 #milo-chat-input::placeholder { color: #af8b9c; }
 #milo-chat-send { min-height: 44px; border: 1px solid #b14270; border-radius: 14px; background: linear-gradient(120deg, #dc77a1, #ba3e73); color: white; padding: 10px 13px; font: 700 12px 'Quicksand', sans-serif; cursor: pointer; }

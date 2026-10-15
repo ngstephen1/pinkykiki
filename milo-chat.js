@@ -7,6 +7,7 @@
     const send = document.getElementById('milo-chat-send')
     const typing = document.getElementById('milo-chat-typing')
     const suggestions = document.getElementById('milo-chat-suggestions')
+    const uploads = window.MiloAttachments
     const storageKey = 'amy-milo-chat.v1'
     let messages = [], session, pending = false, controller, requestVersion = 0, returnFocus
     const greeting = { role: 'assistant', kind: 'welcome', parts: [{ text: 'Gâu gâu~ Milo nhỏ có mặt nè Kiki 🐾\nAnh là AI date buddy của Amy. Cần một bữa ăn ngon, ly trà jasmine, phim hay một góc đi chơi xinh thì gọi anh nha ♡\n\nAmy thích một buổi cozy ở Blacksburg hay đi chơi Christiansburg hơn?', citations: [] }], sources: [] }
@@ -81,6 +82,11 @@
             body.append(paragraph)
         }
         row.append(body)
+        if (Array.isArray(message.fileNames) && message.fileNames.length) {
+            const files = node('div', 'milo-message-files')
+            for (const name of message.fileNames.slice(0, 3)) files.append(node('span', '', `📎 ${String(name).slice(0, 180)}`))
+            row.append(files)
+        }
         if (message.contextLabel) row.append(node('span', 'milo-message-meta', message.contextLabel))
         if (message.searched) row.append(node('span', 'milo-message-meta', 'Milo vừa ngó nguồn trên web ↗'))
         const sources = (message.sources || []).filter(source => safeURL(source.url))
@@ -124,7 +130,8 @@
     function busy(value) {
         pending = value
         typing.hidden = !value
-        send.disabled = value || !input.value.trim()
+        send.disabled = value || uploads.isReading() || (!input.value.trim() && !uploads.hasFiles())
+        uploads.setBusy(value)
         input.setAttribute('aria-busy', String(value))
         updateContext()
         scrollMessages()
@@ -147,16 +154,22 @@
         list.querySelector('.milo-error')?.remove()
         const row = node('article', 'milo-message milo-error')
         const body = node('div', 'milo-message-body', text)
-        const retry = node('button', 'milo-retry', 'Gọi Milo lại ♡')
+        const needsFiles = messages.filter(message => message.role === 'user').at(-1)?.fileNames?.length && !uploads.hasFiles()
+        const retry = node('button', 'milo-retry', needsFiles ? 'Thêm lịch lại 📎' : 'Gọi Milo lại ♡')
         retry.type = 'button'
-        retry.addEventListener('click', () => { if (!pending) requestReply(context) })
+        retry.addEventListener('click', () => { if (!pending) { if (needsFiles && !uploads.hasFiles()) document.getElementById('milo-chat-attach').click(); else requestReply(context) } })
         body.append(retry)
         row.append(body)
         list.append(row)
         scrollMessages()
     }
     async function requestReply(context) {
-        if (pending) return
+        if (pending || uploads.isReading()) return
+        const attachments = uploads.files()
+        if (messages.filter(message => message.role === 'user').at(-1)?.fileNames?.length && !attachments.length) {
+            showError('Amy đính kèm lại lịch để Milo ngó tiếp nha ♡', context)
+            return
+        }
         list.querySelector('.milo-error')?.remove()
         const version = ++requestVersion
         controller = new AbortController()
@@ -166,7 +179,7 @@
         try {
             const signal = currentController.signal
             let token = await getSession(signal)
-            const post = () => fetch('/api/milo/chat', { method: 'POST', credentials: 'same-origin', signal, headers: { 'Content-Type': 'application/json', 'X-Milo-CSRF': token.csrf }, body: JSON.stringify({ messages: apiMessages(), context }) })
+            const post = () => fetch('/api/milo/chat', { method: 'POST', credentials: 'same-origin', signal, headers: { 'Content-Type': 'application/json', 'X-Milo-CSRF': token.csrf }, body: JSON.stringify({ messages: apiMessages(), context, attachments }) })
             let response = await post()
             if (response.status === 403) { token = await getSession(signal, true); response = await post() }
             const data = await response.json()
@@ -185,9 +198,10 @@
     }
     function sendMessage(text) {
         text = text.trim().slice(0, 2000)
-        if (!text || pending) return
+        if (pending || uploads.isReading() || (!text && !uploads.hasFiles())) return
+        if (!text) text = 'Milo ngó giúp lịch Amy có trùng buổi hẹn đang chọn hông? ♡'
         const context = snapshot()
-        appendMessage({ role: 'user', text, contextLabel: contextLabel(context) })
+        appendMessage({ role: 'user', text, fileNames: uploads.names(), contextLabel: contextLabel(context) })
         input.value = ''
         input.style.height = ''
         requestReply(context)
@@ -214,13 +228,16 @@
     panel.addEventListener('keydown', event => { if (event.key === 'Escape') { event.preventDefault(); close() } })
     document.getElementById('milo-chat-stop').addEventListener('click', () => controller?.abort())
     document.getElementById('milo-chat-form').addEventListener('submit', event => { event.preventDefault(); sendMessage(input.value) })
-    input.addEventListener('input', () => { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 100) + 'px'; send.disabled = pending || !input.value.trim() })
+    const updateSend = () => { send.disabled = pending || uploads.isReading() || (!input.value.trim() && !uploads.hasFiles()) }
+    window.addEventListener('milo:attachments', updateSend)
+    input.addEventListener('input', () => { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 100) + 'px'; updateSend() })
     input.addEventListener('keydown', event => { if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) { event.preventDefault(); sendMessage(input.value) } })
     document.getElementById('milo-chat-reset').addEventListener('click', () => {
         requestVersion++
         controller?.abort()
         controller = null
         messages = []
+        uploads.clear()
         list.replaceChildren()
         appendMessage({ ...greeting })
         busy(false)
@@ -229,6 +246,7 @@
     function sizeForKeyboard() {
         const viewport = window.visualViewport
         if (!viewport) return
+        panel.classList.toggle('milo-chat-compact', viewport.height < 480)
         panel.style.setProperty('--milo-visible-height', `${viewport.height}px`)
         panel.style.setProperty('--milo-keyboard-inset', `${Math.max(12, innerHeight - viewport.height - viewport.offsetTop + 12)}px`)
     }

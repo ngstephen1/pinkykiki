@@ -1,15 +1,15 @@
-.date-review { max-width: 700px; margin: 26px auto; padding: 23px 25px; text-align: left; border: 1px solid #ebcddc; border-radius: 21px; background: linear-gradient(125deg, #fff8f3, #fff1f7); }
-.review-heading { display: flex; align-items: center; gap: 12px; }
-.review-heading img { flex: 0 0 48px; }
+.date-review { max-width: 700px; margin: 26px auto; padding: 20px 22px; text-align: left; border: 1px solid #ebcddc; border-radius: 21px; background: linear-gradient(125deg, #fff8f3, #fff1f7); }
+.review-heading { display: flex; align-items: center; gap: 10px; }
+.review-heading img { flex: 0 0 40px; width: 40px; height: 40px; }
 .review-kicker { color: #a96683; font-size: 10px; letter-spacing: .7px; margin: 0 0 6px; }
-.review-heading h3 { color: #934765; font: 700 20px/1.4 'Quicksand', sans-serif; margin: 0; }
-.review-heading span { color: #996a7e; font-size: 10px; }
-.review-status { color: #9c5375; font: 700 12px/1.8 'Quicksand', sans-serif; margin: 15px 0 0; }
+.review-heading h3 { flex: 1; min-width: 0; color: #934765; font: 700 19px/1.4 'Quicksand', sans-serif; margin: 0; }
+.review-ai-label { padding: 3px 6px; border: 1px solid #eac8d7; border-radius: 6px; color: #996a7e; font: 700 9px 'Quicksand', sans-serif; }
+.review-status { color: #9c5375; font: 700 12px/1.8 'Quicksand', sans-serif; margin: 12px 0 0; }
 .review-comment { white-space: pre-line; overflow-wrap: anywhere; color: #825166; font-size: 13px; line-height: 1.9; margin: 14px 0; }
 .review-comment a { color: #ab4676; text-underline-offset: 3px; }
 .review-sources { display: flex; gap: 7px; flex-wrap: wrap; margin: 12px 0; }
 .review-sources a { color: #a44973; background: #fffcfa; border: 1px solid #ead1dd; border-radius: 9px; padding: 7px 9px; font-size: 10px; line-height: 1.5; max-width: 100%; overflow-wrap: anywhere; text-underline-offset: 3px; }
-.review-actions { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-top: 16px; }
+.review-actions { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-top: 14px; }
 .review-actions .love-button { font-size: 12px; padding: 12px 17px; }
 .review-note, .review-apply-note { color: #94687b; font-size: 11px; line-height: 1.8; margin: 13px 0 0; }
 .review-dialog { width: min(700px, calc(100% - 32px)); max-width: 700px; max-height: calc(100dvh - 40px); color: #825166; padding: 0; border: 1px solid #edcada; border-radius: 25px; background: #fffaf7; box-shadow: 0 25px 90px #5d233b40; overscroll-behavior: contain; }

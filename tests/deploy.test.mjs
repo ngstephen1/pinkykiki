@@ -85,6 +85,10 @@ test('Vercel API adapter supports rewritten routes, parsed bodies, chat and revi
     assert.equal(review.status, 200)
     assert.equal((await review.json()).suggestion, null)
     assert.equal((await post('chat', { messages: [{ role: 'user', content: 'x'.repeat(70000) }] })).status, 400)
+    const pdf = { name: 'calendar.pdf', type: 'application/pdf', data: 'data:application/pdf;base64,' + Buffer.from('%PDF-1.4\n' + 'x'.repeat(70000) + '\n%%EOF').toString('base64') }
+    assert.equal((await post('chat', { messages: [{ role: 'user', content: 'Kiểm tra lịch Amy' }], context: plan, attachments: [pdf] })).status, 200)
+    assert.equal(calls.at(-1).input.at(-1).content[1].file_data, pdf.data)
+    assert.equal(calls.at(-1).tools, undefined)
     assert.equal((await actualFetch(base + '/api/milo?action=unknown')).status, 404)
     assert.equal((await actualFetch(base + '/api/milo')).status, 404)
 })

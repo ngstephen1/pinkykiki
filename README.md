@@ -11,6 +11,7 @@ Cute surprises, weather, little map pins, a puppy AI buddy & a PDF keepsake.
 **Come play** · Node 22
 
 ```sh
+npm install
 npm start
 ```
 

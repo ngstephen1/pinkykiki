@@ -546,14 +546,6 @@ button {
   bottom: calc(var(--m) * 8px);
 }
 
-.sign {
-  position: absolute;
-  color: var(--brown);
-  bottom: 10px;
-  right: 10px;
-  font-size: 10px;
-}
-
 a {
   color: var(--brown);
   text-decoration: none;
@@ -624,11 +616,8 @@ a:hover {
 .game-help { font-size: 11px; color: #a07888; line-height: 1.8; margin: 20px 0 10px; }
 .game-help strong { color: #a54271; font-size: 16px; }
 .game-status { max-width: 420px; min-height: 22px; padding: 0 8px; font-size: 13px; color: #a64b74; line-height: 1.6; margin: 0 0 12px; }
-.game-resume { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: 10px; padding: 8px 12px; color: #b34578; font: 700 12px 'Quicksand', sans-serif; text-decoration: underline; text-underline-offset: 4px; }
 .game-page .love-button { width: auto; height: auto; margin: 0 0 12px; filter: none; pointer-events: auto; background-image: linear-gradient(120deg, #d75a8b, #bd3b70); }
 .game-page .love-button.secondary { background: #fff9fa; }
-.game-page .sign { position: static; font-size: 9px; color: #ac8b96; margin: 18px 0 0; }
-.game-page .sign a { color: inherit; }
 .win-panel { width: min(100%, 440px); padding: 22px 20px 12px; background: #fffdfbe8; border: 1px solid #edd1dc; border-radius: 22px; box-shadow: 0 12px 35px #b04f7312; animation: win-reveal .85s cubic-bezier(.2,.8,.2,1) both; }
 .win-panel h2 { font: 700 23px/1.4 'Quicksand', sans-serif; margin: 8px 0; color: #bd447a; }
 .win-panel p { margin: 8px 0 18px; font-size: 13px; color: #a57688; }
