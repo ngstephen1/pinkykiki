@@ -36,6 +36,34 @@ test('public build excludes secrets, server code, samples and symlinks', async t
     }
 })
 
+test('social previews use absolute deployment URLs without changing navigation or source files', async t => {
+    const root = await mkdtemp(resolve(tmpdir(), 'amy-social-'))
+    t.after(() => rm(root, { recursive: true, force: true }))
+    const html = '<meta property="og:image" content="/assets/amy-milo-thumbnail.jpg"><meta name="twitter:image" content="/assets/amy-milo-thumbnail.jpg"><meta property="og:url" content="/"><a href="/login/index.html">Amy</a>'
+    await mkdir(resolve(root, 'login'))
+    await mkdir(resolve(root, 'assets'))
+    await writeFile(resolve(root, 'index.html'), html)
+    await writeFile(resolve(root, 'login/index.html'), html)
+    await writeFile(resolve(root, 'assets/amy-milo-thumbnail.jpg'), 'thumbnail fixture')
+    await buildStatic(root, { siteURL: '' })
+    assert.equal(await readFile(resolve(root, 'dist/index.html'), 'utf8'), html)
+    for (const siteURL of ['amy-preview.vercel.app', 'https://amy.example/']) {
+        const origin = siteURL.startsWith('https:') ? 'https://amy.example' : 'https://amy-preview.vercel.app'
+        await buildStatic(root, { siteURL })
+        for (const name of ['index.html', 'login/index.html']) {
+            const built = await readFile(resolve(root, 'dist', name), 'utf8')
+            assert.ok(built.includes(`property="og:image" content="${origin}/assets/amy-milo-thumbnail.jpg"`))
+            assert.ok(built.includes(`name="twitter:image" content="${origin}/assets/amy-milo-thumbnail.jpg"`))
+            assert.ok(built.includes(`property="og:url" content="${origin}/"`))
+            assert.ok(built.includes('href="/login/index.html"'))
+            assert.equal(await readFile(resolve(root, name), 'utf8'), html)
+        }
+        assert.equal(await readFile(resolve(root, 'dist/assets/amy-milo-thumbnail.jpg'), 'utf8'), 'thumbnail fixture')
+    }
+    await assert.rejects(buildStatic(root, { siteURL: 'file:///private' }), /HTTP\(S\)/)
+    await assert.rejects(buildStatic(root, { siteURL: 'https://user:pass@amy.example' }), /HTTP\(S\)/)
+})
+
 test('Vercel API adapter supports rewritten routes, parsed bodies, chat and review', async t => {
     const actualFetch = globalThis.fetch
     const names = ['OPENAI_API_KEY', 'MILO_PERSONAL_CONTEXT', 'VERCEL']
