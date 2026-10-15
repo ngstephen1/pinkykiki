@@ -119,11 +119,6 @@
 .venue-photo-credit { border-top: 1px solid #f3e5eb; padding: 10px 16px; color: #967082; font-size: 10px; line-height: 1.6; text-underline-offset: 3px; }
 .venue-note { margin: 20px 0 0; text-align: center; color: #a27b8b; font-size: 11px; line-height: 1.8; }
 .photo-fallback { display: grid; place-items: center; height: 100%; padding: 30px; text-align: center; color: #a85a7d; font: 700 20px 'Quicksand', sans-serif; }
-.photo-credits { margin: 0 0 22px; color: #a17c8d; font-size: 10px; line-height: 1.8; }
-.photo-credits summary { padding: 12px 0; cursor: pointer; }
-.photo-credits ul { columns: 2; padding-left: 16px; }
-.photo-credits li { break-inside: avoid; margin-bottom: 8px; }
-.photo-credits a { color: #a15c7d; text-underline-offset: 3px; }
 .date-map-section { margin: 30px 0; text-align: left; border: 1px solid #ead0dc; border-radius: 21px; padding: 22px; background: #fffaf8; }
 .map-heading-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
 .map-heading-row .step-caption { text-align: left; font-size: 9px; margin-bottom: 7px; }
@@ -213,7 +208,6 @@
     .photo-choice { padding: 0; }
     .venue-content { padding: 16px 16px 11px; }
     .venue-picture { aspect-ratio: 16 / 9; }
-    .photo-credits ul { columns: 1; }
     .date-map-section { padding: 14px; border-radius: 17px; }
     .map-heading-row { flex-wrap: wrap; }
     .map-heading-row h3 { font-size: 20px; }

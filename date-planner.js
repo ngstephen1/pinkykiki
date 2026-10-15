@@ -136,14 +136,6 @@
         }
     }
     document.getElementById('location-label').textContent = options.location.name
-    const usedPlaces = [...new Set([...options.restaurants, ...options.activities].map(item => item.placeId))]
-    for (const id of usedPlaces) {
-        const place = options.places[id]
-        if (!place?.photo) continue
-        const row = node('li')
-        row.append(externalLink(place.photo.source, `${place.name} — ${place.photo.credit}`))
-        document.getElementById('photo-credit-list').append(row)
-    }
 
     function persist() {
         window.AmyState.saveDraft({ ...state, activities: [...state.activities] })
