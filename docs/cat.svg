@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="164" viewBox="0 0 180 164" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">A little love, from Milo</title>
+  <desc id="desc">A blushing cream kitten cuddles a pink heart, with tiny sparkles around its ears.</desc>
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="90" cy="150" rx="47" ry="5" fill="#F6DCE6"/>
+    <path d="M118 126C147 141 164 115 147 104" stroke="#B96D8B" stroke-width="15"/>
+    <path d="M118 126C147 141 164 115 147 104" stroke="#FFF5E8" stroke-width="9"/>
+    <ellipse cx="89" cy="119" rx="34" ry="28" fill="#FFF5E8" stroke="#B96D8B" stroke-width="3"/>
+    <path d="M51 69 47 32Q46 25 53 29L72 44Q89 37 106 44L125 29Q132 25 131 33L127 70C140 103 114 116 89 116S38 103 51 69Z" fill="#FFF9F0" stroke="#B96D8B" stroke-width="3"/>
+    <path d="m55 40 3 18 12-9Zm68 0-3 18-12-9Z" fill="#F3BDCF"/>
+    <path d="M65 77q5-5 10 0m28 0q5-5 10 0" stroke="#9B5777" stroke-width="3"/>
+    <ellipse cx="62" cy="87" rx="8" ry="4" fill="#F4C3D3"/>
+    <ellipse cx="116" cy="87" rx="8" ry="4" fill="#F4C3D3"/>
+    <path d="M85 84q4-3 8 0l-4 5Z" fill="#B96D8B"/>
+    <path d="M89 89v3m0 0q-4 5-8 1m8-1q4 5 8 1M43 85l11 2m-11 6 10-2m72-4 11-2m-10 6 10 2" stroke="#B96D8B" stroke-width="2"/>
+    <ellipse cx="71" cy="143" rx="12" ry="6" fill="#FFF9F0" stroke="#B96D8B" stroke-width="3"/>
+    <ellipse cx="107" cy="143" rx="12" ry="6" fill="#FFF9F0" stroke="#B96D8B" stroke-width="3"/>
+    <path d="M89 140C54 121 69 102 89 116C109 102 124 121 89 140Z" fill="#EB91B3" stroke="#BC5F87" stroke-width="3"/>
+    <path d="M76 119q2-4 6-1" stroke="#FFDCE8" stroke-width="3"/>
+    <ellipse cx="67" cy="123" rx="6" ry="9" transform="rotate(-28 67 123)" fill="#FFF9F0" stroke="#B96D8B" stroke-width="2.5"/>
+    <ellipse cx="111" cy="123" rx="6" ry="9" transform="rotate(28 111 123)" fill="#FFF9F0" stroke="#B96D8B" stroke-width="2.5"/>
+    <path d="M27 65v12m-6-6h12m117-28v10m-5-5h10" stroke="#DFBA76" stroke-width="2.5"/>
+    <path d="M32 37c-10-6-6-12 0-8 6-4 10 2 0 8Z" fill="#EBA8C2"/>
+  </g>
+</svg>
