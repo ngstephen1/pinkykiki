@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../auth.js"></script>
+    <script>AmyAuth.require()</script>
+    <script src="../heart-music.js" defer></script>
+    <link rel="stylesheet" href="claw-machine.css">
+    <link rel="stylesheet" href="../romance.css">
+    <link rel="stylesheet" href="../love-magic.css">
+    <script src="../love-magic.js" defer></script>
+    <link rel="preload" href="../fonts/Quicksand-Bold.ttf" as="font" type="font/ttf" crossorigin>
+    <title>Gắp Milo về đội Amy 💗</title>
+  </head>
+  <body class="romance-page game-page">
+    <div class="love-garden" aria-hidden="true"><span style="--x:8%;--delay:-3s">♡</span><span style="--x:90%;--delay:-8s">✿</span><span style="--x:42%;--delay:-12s">♡</span></div>
+    <main class="game-layout">
+    <header class="game-heading">
+      <a href="../invitation.html" class="game-back">← Lời mời của anh</a>
+      <p class="love-eyebrow">a little game, a little love ♡</p>
+      <h1>Gắp Milo về đội Amy 💗</h1>
+      <p>Milo là anh nè, người cầm chiếc ô dâu hồng ♡<br>Amy gắp được anh rồi nhận ở cửa quà, mình mới chọn ngày hẹn nha!</p>
+    </header>
+    <aside id="attempt-clock" class="attempt-clock" data-state="ready" aria-label="Đồng hồ lượt gắp">
+      <div class="attempt-clock-face">
+        <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle class="clock-track" cx="32" cy="32" r="27"/><circle class="clock-progress" cx="32" cy="32" r="27" pathLength="100"/></svg>
+        <span class="attempt-clock-time" role="timer" aria-live="off" aria-label="Còn 20 giây để ngắm gắp"><strong id="attempt-seconds">20</strong><small>s</small></span>
+      </div>
+      <div class="attempt-clock-copy"><span>một lượt gắp, một chút hồi hộp ♡</span><p id="attempt-clock-label">Giữ → là bắt đầu 20 giây nha!</p></div>
+    </aside>
+    <div class="wrapper" aria-label="Máy gắp quà cho Amy">
+      <div class="collection-box pix"></div>
+      <div class="claw-machine">
+        <div class="box pix">
+          <div class="machine-top pix">
+            <div class="arm-joint pix">
+              <div class="arm pix">
+                <div class="claws pix"></div>
+              </div>
+            </div>
+            <div class="rail hori pix"></div>
+            <div class="rail vert pix"></div>
+          </div>
+          <div class="machine-bottom pix">
+            <div class="collection-point pix"></div>
+          </div>
+        </div>
+        <div class="control pix">
+          <div class="cover left"></div>
+          <button class="hori-btn pix" type="button" aria-label="Giữ để di chuyển sang phải, thả để dừng" aria-keyshortcuts="ArrowRight Space Enter"></button>
+          <button class="vert-btn pix" type="button" aria-label="Giữ để di chuyển lên, thả để gắp" aria-keyshortcuts="ArrowUp Space Enter"></button>
+          <div class="cover right">
+            <div class="instruction pix"></div>
+          </div>
+          <div class="cover bottom"></div>
+          <div class="cover top">
+            <div class="collection-arrow pix"></div>
+          </div>
+          <div class="collection-point pix"></div>
+        </div>
+      </div>
+    </div>
+    <p class="game-help">Giữ <strong>→</strong> để chọn ngang · giữ <strong>↑</strong> để chọn dọc<br>Thả nút thứ hai là gắp nè. Hết 20 giây sẽ tự gắp tại chỗ.<br>Bàn phím: Tab + Space hoặc Enter.</p>
+    <p id="game-status" class="game-status" role="status" aria-live="polite">Tìm chiếc ô dâu hồng ở hàng dưới nha, Amy ♡</p>
+    <button id="claim-milo" class="love-button secondary" type="button" hidden>Chạm để nhận Milo 💗</button>
+    <a id="resume-date" class="game-resume" href="../date-planner.html" hidden>Tiếp tục chọn date với Milo 💌</a>
+    <section id="milo-win" class="win-panel" aria-labelledby="win-title" hidden>
+      <span class="win-hearts" aria-hidden="true">✦ ♡ ✦</span>
+      <h2 id="win-title">Milo về đội Amy rồiii!</h2>
+      <p>Bắt được anh rồi, mình hẹn nhau thôi 💗</p>
+      <a id="planner-link" class="love-button" href="../date-planner.html">Chọn date với Milo 💌</a>
+    </section>
+    <div class="sign">
+      by masahito / <a href="http://www.ma5a.com/">ma5a.com</a>
+    </div>
+    </main>
+    <dialog id="miss-dialog" class="miss-dialog" aria-labelledby="miss-title" aria-describedby="miss-description">
+      <div class="miss-dialog-body">
+        <button id="miss-close" class="miss-close" type="button" aria-label="Đóng và thử gắp lại">×</button>
+        <p class="miss-kicker">a little oops, a little more luck ♡</p>
+        <div class="miss-flower" aria-hidden="true"><span>✧</span><span>🥀</span><span>♡</span></div>
+        <h2 id="miss-title">xui nha bà</h2>
+        <p id="miss-description">Gắp hụt xíu thuiii, Milo vẫn đợi Kiki nè.<br>Mình thử lại, biết đâu lần này trúng tim anh ♡</p>
+        <button id="miss-retry" class="love-button" type="button" autofocus>Gắp lại nè bà ♡</button>
+      </div>
+    </dialog>
+    <script src="../amy-state.js"></script>
+    <script src="milo-celebration.js"></script>
+    <script src="attempt-clock.js"></script>
+    <script src="claw-machine.js"></script>
+  </body>
+</html>

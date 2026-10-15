@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#bb6b59">
+    <title>Lối vào tim Milo · dành riêng cho Amy 💌</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💌%3C/text%3E%3C/svg%3E">
+    <link rel="preload" href="../fonts/Quicksand-Bold.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="stylesheet" href="../romance.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../love-magic.css">
+    <script src="../auth.js"></script>
+    <script src="../heart-music.js" defer></script>
+    <script src="login.js" defer></script>
+    <script src="../love-magic.js" defer></script>
+</head>
+<body class="login-page">
+    <main class="autumn-scene">
+        <img src="virginiatech_autumn.png" class="bg" width="3800" height="1267" alt="" fetchpriority="high" aria-hidden="true">
+        <div class="autumn-light" aria-hidden="true"></div>
+        <div class="leaves" aria-hidden="true"><div class="set">
+            <div><img src="leaf_01.png" alt=""></div><div><img src="leaf_02.png" alt=""></div>
+            <div><img src="leaf_03.png" alt=""></div><div><img src="leaf_04.png" alt=""></div>
+            <div><img src="leaf_01.png" alt=""></div><div><img src="leaf_02.png" alt=""></div>
+            <div><img src="leaf_03.png" alt=""></div><div><img src="leaf_04.png" alt=""></div>
+        </div></div>
+        <div class="bicycle-ride" aria-hidden="true">
+            <img src="../gifs/cat-hearts.gif" class="bicycle-cat" width="200" height="172" alt="" draggable="false">
+            <img src="girl.png" class="girl" width="476" height="539" alt="" draggable="false">
+        </div>
+        <img src="trees.png" class="trees" width="1920" height="1080" alt="" aria-hidden="true">
+        <header class="scene-caption"><span class="scene-wordmark">a little love story.</span><span>VIRGINIA TECH · OUR FALL ERA</span></header>
+        <section class="login" aria-labelledby="login-title">
+            <div class="heart-lock" aria-hidden="true">♡</div>
+            <p class="login-eyebrow">ONLY AMY HAS THE KEY</p>
+            <h1 id="login-title">Lối vào tim <span>Milo.</span></h1>
+            <p class="login-intro">Giữa mùa thu ở Virginia Tech,<br>có một người chỉ chờ mỗi Amy.</p>
+            <form id="heart-login" novalidate>
+                <div class="inputBox">
+                    <label for="username">Tên của cô gái đặc biệt</label>
+                    <input id="username" name="username" type="text" value="amykiki" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+                    <span class="field-heart" aria-hidden="true">♡</span>
+                </div>
+                <div class="inputBox password-box">
+                    <label for="password">Mật mã vào tim Milo</label>
+                    <input id="password" name="password" type="password" placeholder="Một bí mật nho nhỏ…" autocomplete="current-password" aria-describedby="login-error" required>
+                    <button id="show-password" class="password-peek" type="button" aria-label="Hiện mật mã" aria-pressed="false">Hiện</button>
+                </div>
+                <p id="login-error" class="login-error" role="alert" aria-live="polite"></p>
+                <button id="btn" class="login-submit" type="submit"><span>Mở cửa tim Milo</span><span aria-hidden="true">♡ →</span></button>
+            </form>
+            <div class="group"><button id="hint-toggle" type="button" aria-expanded="false" aria-controls="password-hint">Amy cần một xíu gợi ý? 💌</button></div>
+            <p id="password-hint" class="password-hint" hidden>Bài hát Việt Milo mê gần đây nè.<br><span>Viết không dấu, không khoảng trắng nha ♡</span></p>
+            <p class="login-signature">your name, my favorite password.</p>
+        </section>
+        <footer class="scene-footer">a little autumn, a lot of love. <span aria-hidden="true">🍂</span></footer>
+    </main>
+</body>
+</html>

@@ -1,0 +1,12 @@
+.love-magic-canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 25; contain: strict; }
+.love-magic-ready :is(button, a, .choice-card) { -webkit-tap-highlight-color: transparent; }
+/* Move only the flowers; page content and pointer targets stay in place. */
+@media (prefers-reduced-motion: no-preference) {
+    .love-magic-ready .love-garden::before { translate: 0 calc(var(--love-scroll-progress, 0) * -18px); }
+    .love-magic-ready .love-garden::after { translate: 0 calc(var(--love-scroll-progress, 0) * 18px); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .love-magic-canvas { display: none; }
+    [data-love-reveal] { opacity: 1 !important; translate: none !important; }
+}
+@media print { .love-magic-canvas { display: none; } }

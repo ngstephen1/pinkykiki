@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.vercel/
+dist/
+.DS_Store
+*.log
+coverage/
+server/milo-personal.md
+output/pdf/
+tmp/pdfs/

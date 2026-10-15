@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fff2f5">
+    <script src="auth.js"></script>
+    <script>AmyAuth.require()</script>
+    <script src="heart-music.js" defer></script>
+    <title>Một chiếc hẹn của tụi mình 💌</title>
+    <link rel="preload" href="fonts/Quicksand-Bold.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="stylesheet" href="romance.css">
+    <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+    <link rel="stylesheet" href="date-planner.css">
+    <link rel="stylesheet" href="milo-chat.css">
+    <link rel="stylesheet" href="date-review.css">
+    <link rel="stylesheet" href="love-magic.css">
+    <script src="amy-state.js"></script>
+    <script>
+        if (AmyAuth.isAuthenticated() && !AmyState.hasMilo()) location.replace('claw_machine_usagi/claw-machine.html')
+    </script>
+    <script src="date-options.js" defer></script>
+    <script src="vendor/leaflet/leaflet.js" defer></script>
+    <script src="date-map.js" defer></script>
+    <script src="date-pdf.js" defer></script>
+    <script src="date-planner.js" defer></script>
+    <script src="date-review.js" defer></script>
+    <script src="milo-chat.js" defer></script>
+    <script src="milo-puppy.js" defer></script>
+    <script src="love-magic.js" defer></script>
+</head>
+<body class="romance-page planner-page">
+    <div class="love-garden" aria-hidden="true"><span style="--x:8%;--delay:-3s">♡</span><span style="--x:25%;--delay:-11s;--duration:21s">✿</span><span style="--x:65%;--delay:-15s">♡</span><span style="--x:90%;--delay:-8s">❀</span></div>
+    <main class="planner-shell" id="planner" hidden>
+        <header class="planner-header"><a href="claw_machine_usagi/claw-machine.html">← Milo của Amy</a><span>our little first date.</span></header>
+        <div class="planner-intro">
+            <div class="planner-keepsake">
+                <img class="planner-pal planner-kitty" src="gifs/planner-kitty.gif" width="200" height="181" alt="" aria-hidden="true" draggable="false">
+                <figure class="couple-sticker">
+                    <div class="couple-photo"><img src="assets/amy_and_milo.png" width="320" height="320" alt="Sticker đôi của Amy và Milo" draggable="false"></div>
+                    <figcaption>Amy <span aria-hidden="true">♡</span> Milo</figcaption>
+                </figure>
+                <img class="planner-pal planner-bunny" src="gifs/planner-bunny.gif" width="200" height="194" alt="" aria-hidden="true" draggable="false">
+            </div>
+            <p class="love-eyebrow">one date, a thousand butterflies 💌</p>
+            <h1>Mình hẹn nhau nha, Amy.</h1>
+            <p id="location-label"></p>
+        </div>
+        <ol class="stepper" aria-label="Các bước chọn cuộc hẹn">
+            <li data-step="0"><span>01</span> Ngày</li><li data-step="1"><span>02</span> Giờ</li><li data-step="2"><span>03</span> Ăn gì</li><li data-step="3"><span>04</span> Đi đâu</li>
+        </ol>
+        <aside class="milo-teaser" aria-label="Milo nhỏ giúp Amy chọn date">
+            <picture><source media="(prefers-reduced-motion: reduce)" srcset="gifs/milo-puppy-still.png"><img src="gifs/milo-puppy.gif" width="54" height="54" alt="" class="milo-avatar milo-puppy-avatar"></picture>
+            <div><strong>Gâu gâu~ Milo nhỏ có mặt 🐾</strong><p>AI date buddy của Amy · cần gợi ý thì gọi anh nha ♡</p></div>
+            <button class="milo-open-button" type="button" data-milo-open>Hỏi Milo ♡</button>
+        </aside>
+        <form id="date-form">
+            <section class="planner-step" data-panel="0" aria-labelledby="date-heading">
+                <p class="step-caption">01 / a little beginning</p>
+                <h2 id="date-heading" tabindex="-1">Ngày nào mình gặp nhau?</h2>
+                <p class="step-description">Amy chọn một ngày xinh để hẹn với Milo nha. Anh dành thời gian cho Amy ♡</p>
+                <div class="weather-status-row"><p id="weather-status" role="status">Đang ngó trời giúp Amy nè… ☁️</p><button id="weather-retry" class="text-button" type="button" hidden>Thử lại ↻</button></div>
+                <div id="date-choices" class="choices date-choices" role="group" aria-labelledby="date-heading"></div>
+                <p class="weather-credit">Dự báo ở Blacksburg · <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Weather by Open-Meteo ↗</a></p>
+            </section>
+            <section class="planner-step" data-panel="1" aria-labelledby="time-heading" hidden>
+                <p class="step-caption">02 / make time for us</p>
+                <h2 id="time-heading" tabindex="-1">Mấy giờ Amy rảnh nè?</h2>
+                <p class="step-description">Từ chút nắng trưa đến ánh đèn tối, giờ nào cũng xinh khi có Amy.</p>
+                <p class="small-note">Giờ địa phương ở Virginia · mỗi khung giờ dành cho cả buổi hẹn.</p>
+                <div id="time-choices" class="choices two-column" role="group" aria-labelledby="time-heading"></div>
+            </section>
+            <section class="planner-step" data-panel="2" aria-labelledby="restaurant-heading" hidden>
+                <p class="step-caption">03 / good food, better company</p>
+                <h2 id="restaurant-heading" tabindex="-1">Mình ăn gì nè?</h2>
+                <p class="step-description">Amy thích món nào nè? Chọn một quán cho bữa ăn của tụi mình ♡</p>
+                <p class="small-note">Blacksburg gần campus · Christiansburg cho một chuyến đi chơi xa hơn xíu.</p>
+                <div id="restaurant-choices" class="choices restaurant-choices" role="group" aria-labelledby="restaurant-heading"></div>
+                <p class="venue-note">Menu & giờ mở cửa ở link của từng quán, Amy ngó trước khi mình đi nha ♡</p>
+            </section>
+            <section class="planner-step" data-panel="3" aria-labelledby="activity-heading" hidden>
+                <p class="step-caption">04 / a little more time together</p>
+                <h2 id="activity-heading" tabindex="-1">Ăn xong mình đi đâu?</h2>
+                <p class="step-description">Chọn một hoặc nhiều điều dễ thương để làm cùng nhau. Mix hai thành phố cũng được nè ♡</p>
+                <p id="rain-hint" class="rain-hint" hidden>Mưa thì café, phim hay bowling vẫn xinh nha ☂️</p>
+                <div id="activity-choices" class="choices two-column" role="group" aria-labelledby="activity-heading"></div>
+            </section>
+            <nav class="planner-navigation" aria-label="Chuyển bước">
+                <button id="back-step" class="love-button secondary" type="button" hidden>← Quay lại</button>
+                <span id="step-count">1 / 4</span>
+                <button id="next-step" class="love-button" type="button" disabled>Tiếp nè ♡ →</button>
+            </nav>
+        </form>
+        <section id="recap" class="recap" aria-labelledby="recap-title" hidden>
+            <p class="step-caption">it's a date. it's our date.</p>
+            <h2 id="recap-title" tabindex="-1">Một chiếc hẹn của tụi mình 💗</h2>
+            <p class="step-description">Amy đã bắt được Milo rồiii. Giờ anh có một cuộc hẹn với Amy để mong chờ 💗</p>
+            <dl id="recap-details" class="recap-details"></dl>
+            <p id="recap-weather" class="recap-weather"></p>
+            <aside class="date-review" aria-labelledby="review-heading">
+                <div class="review-heading"><img src="milo.png" width="48" height="48" alt="" class="milo-avatar"><div><p class="review-kicker">a little woof, a thoughtful plan</p><h3 id="review-heading">Milo ngó lại lịch hẹn nha 🐾</h3><span>AI Milo · powered by OpenAI</span></div></div>
+                <p id="review-status" class="review-status" role="status">Milo sẽ góp ý khi Amy chọn xong nha ♡</p>
+                <p id="review-comment" class="review-comment" hidden></p>
+                <div id="review-sources" class="review-sources" aria-label="Nguồn tham khảo của nhận xét" hidden></div>
+                <div class="review-actions"><button id="review-open" class="love-button secondary" type="button">Milo góp ý xíu ♡</button><button id="review-refresh" class="text-button" type="button" hidden>Nhờ Milo xem lại ↻</button><button id="review-stop" class="text-button" type="button" hidden>Dừng</button></div>
+                <p class="review-note">Milo nhỏ dùng các lựa chọn của Amy để góp ý. Amy đồng ý thì mình mới sửa nha ♡</p>
+            </aside>
+            <section class="date-map-section" aria-labelledby="map-heading">
+                <div class="map-heading-row"><div><p class="step-caption">little places, lovely memories</p><h3 id="map-heading">Những điểm hẹn của tụi mình 📍</h3></div><button id="map-fit" class="text-button" type="button">Xem hết các điểm ↗</button></div>
+                <p class="map-description">Chạm ghim để xem địa chỉ. Mỗi số khớp với một địa điểm bên dưới nha ♡</p>
+                <div id="date-map" class="date-map" role="region" aria-label="Bản đồ các địa điểm Amy đã chọn"></div>
+                <div class="map-status-row"><p id="map-status" role="status" hidden></p><button id="map-retry" class="text-button" type="button" hidden>Tải lại bản đồ ↻</button></div>
+                <ol id="map-stops" class="map-stops" aria-label="Các địa điểm đã chọn"></ol>
+                <p class="map-footnote">Ghim là địa điểm, chưa phải đường đi. Amy mở Maps để xem chỉ đường nha.</p>
+            </section>
+            <p class="recap-love">Có nắng thì mình đi dạo.<br>Có mưa thì anh mang theo chiếc ô dâu. ☂️</p>
+            <div class="recap-actions"><button id="download-pdf" type="button" class="love-button">Tải PDF xinh ♡</button><button id="copy-itinerary" type="button" class="love-button secondary">Copy lịch hẹn 💌</button><button id="edit-choices" type="button" class="text-button">Amy muốn sửa xíu</button></div>
+            <p id="pdf-status" class="pdf-status" role="status" aria-live="polite" hidden></p>
+            <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
+            <label id="manual-copy-label" class="manual-copy-label" for="manual-copy" hidden>Lịch hẹn của tụi mình — Amy chọn rồi copy nha:</label>
+            <textarea id="manual-copy" rows="12" readonly hidden></textarea>
+            <div class="recap-signoff">
+                <picture class="recap-cat" aria-hidden="true">
+                    <source media="(prefers-reduced-motion: reduce)" srcset="gifs/cat-hearts-still.png">
+                    <img src="gifs/cat-hearts.gif" width="200" height="172" alt="" loading="lazy" decoding="async" draggable="false">
+                </picture>
+                <p class="creator-credit">
+                    <a href="https://www.linkedin.com/in/nguyenpn1/" target="_blank" rel="noopener noreferrer" aria-label="Made by Milo — LinkedIn (mở tab mới)">
+                        <span>Made by <strong>Milo</strong></span>
+                        <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="24" height="24" rx="4" fill="currentColor"/><circle cx="5.8" cy="6.1" r="1.7" fill="#fff"/><path d="M4.3 9h3v10h-3zm5 0h2.9v1.4c.6-1 1.7-1.7 3.2-1.7 3.1 0 3.7 2 3.7 4.7V19h-3v-5c0-1.2 0-2.7-1.7-2.7s-2 1.3-2 2.6V19h-3.1z" fill="#fff"/></svg>
+                    </a>
+                </p>
+                <picture class="recap-cat" aria-hidden="true">
+                    <source media="(prefers-reduced-motion: reduce)" srcset="gifs/cat-hug-still.png">
+                    <img src="gifs/cat-hug.gif" width="200" height="162" alt="" loading="lazy" decoding="async" draggable="false">
+                </picture>
+            </div>
+        </section>
+        <details class="photo-credits">
+            <summary>Một chút credit cho những tấm ảnh ♡</summary>
+            <p>Ảnh quán, campus và đồ ăn được ghi nguồn bên dưới. Ảnh món của thương hiệu hoặc minh họa từ menu được ghi rõ trên từng thẻ.</p>
+            <ul id="photo-credit-list"></ul>
+            <p>Hai bé mèo Peach & Goma: <a href="https://tenor.com/view/hearts-love-mochi-mochi-peach-cat-cute-gif-16269901" target="_blank" rel="noopener noreferrer">gửi tim ↗</a> · <a href="https://tenor.com/view/peach-and-goma-hug-peach-cat-goma-cat-hug-cuddle-gif-1130051217377232563" target="_blank" rel="noopener noreferrer">ôm nhau ↗</a></p>
+            <p>Bé cún Milo nhỏ: <a href="https://tenor.com/view/cute-dog-sticker-gif-11712081657308383037" target="_blank" rel="noopener noreferrer">puppy sticker trên Tenor ↗</a></p>
+            <p>Thời tiết cute trên Tenor: <a href="https://tenor.com/view/rain-raining-sad-cloud-frowning-pouring-rain-gif-16971795" target="_blank" rel="noopener noreferrer">mây mưa của Samv_2003 ↗</a> · <a href="https://tenor.com/view/sun-happy-happy-sun-sunny-gif-27694245" target="_blank" rel="noopener noreferrer">mặt trời của DanielaNachtigall ↗</a></p>
+        </details>
+        <footer class="planner-footer"><span>from Milo, with ♡</span><span>made for Amy, only Amy.</span></footer>
+    </main>
+    <dialog id="weather-dialog" class="weather-dialog" aria-labelledby="weather-popup-title" aria-describedby="weather-popup-date weather-popup-forecast weather-popup-note">
+        <div class="weather-popup-body">
+            <button id="weather-popup-close" class="weather-popup-close" type="button" aria-label="Đóng lời nhắn thời tiết">×</button>
+            <p class="weather-popup-kicker">a little weather love note ♡</p>
+            <div class="weather-popup-art" aria-hidden="true">
+                <span>✧</span>
+                <picture><source id="weather-popup-still" media="(prefers-reduced-motion: reduce)" srcset="gifs/weather-sun-still.png"><img id="weather-popup-gif" src="gifs/weather-sun.gif" width="140" height="140" alt="" draggable="false"></picture>
+                <span>♡</span>
+            </div>
+            <h2 id="weather-popup-title">nắng chiếu lung linh</h2>
+            <p id="weather-popup-date" class="weather-popup-date"></p>
+            <p id="weather-popup-forecast" class="weather-popup-forecast"></p>
+            <p id="weather-popup-note" class="weather-popup-note"></p>
+            <button id="weather-popup-keep" class="love-button" type="button" autofocus>Vẫn hẹn ngày này nha ♡</button>
+            <p class="weather-popup-credit">Dự báo có thể đổi · <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo ↗</a></p>
+        </div>
+    </dialog>
+    <dialog id="review-dialog" class="review-dialog" aria-labelledby="review-dialog-title" aria-describedby="review-dialog-intro">
+        <div class="review-dialog-body">
+            <button id="review-close" class="review-close" type="button" aria-label="Đóng góp ý của Milo" autofocus>×</button>
+            <p class="review-kicker">a little suggestion, just for Kiki ♡</p>
+            <h2 id="review-dialog-title">Milo góp ý xíu nha 🐾</h2>
+            <p id="review-dialog-intro" class="review-dialog-intro">AI Milo ngó lại chiếc hẹn của tụi mình. Amy vẫn là người quyết định nha.</p>
+            <p id="review-dialog-comment" class="review-comment"></p>
+            <div id="review-dialog-sources" class="review-sources" aria-label="Nguồn Milo tham khảo"></div>
+            <p class="review-note">Giờ thường lệ & suất chiếu có thể đổi. Mình kiểm tra lại trên trang của địa điểm trước khi đi nha ♡</p>
+            <section id="review-proposal" class="review-proposal" aria-labelledby="review-proposal-title" hidden>
+                <p class="review-kicker">một chỉnh sửa nhỏ thôi</p>
+                <h3 id="review-proposal-title"></h3>
+                <p id="review-proposal-reason"></p>
+                <div id="review-changes" class="review-changes"></div>
+                <p class="review-apply-note">Bấm đồng ý để cập nhật lựa chọn, bản đồ và bản PDF tải tiếp theo.</p>
+            </section>
+            <p id="review-dialog-status" class="review-status" role="status"></p>
+            <div class="review-dialog-actions"><button id="review-agree" class="love-button" type="button" hidden>Agree with this suggestion ♡</button><button id="review-keep" class="text-button" type="button">Giữ lịch Amy chọn ♡</button></div>
+        </div>
+    </dialog>
+    <button id="milo-chat-launcher" class="milo-chat-launcher milo-puppy" type="button" aria-expanded="false" aria-controls="milo-chat-panel" aria-label="Milo nhỏ, bé cún AI của Amy — mở trò chuyện" title="Gâu gâu~ chạm Milo để trò chuyện ♡" data-milo-open hidden>
+        <span class="milo-puppy-label">Milo nhỏ · AI <span aria-hidden="true">🐾</span></span>
+        <picture class="milo-puppy-picture"><source media="(prefers-reduced-motion: reduce)" srcset="gifs/milo-puppy-still.png"><img src="gifs/milo-puppy.gif" class="milo-puppy-sprite" width="100" height="100" alt="" draggable="false"></picture>
+        <span class="milo-puppy-shadow" aria-hidden="true"></span>
+    </button>
+    <section id="milo-chat-panel" class="milo-chat-panel" role="dialog" aria-modal="false" aria-labelledby="milo-chat-title" hidden>
+        <header class="milo-chat-header"><picture><source media="(prefers-reduced-motion: reduce)" srcset="gifs/milo-puppy-still.png"><img src="gifs/milo-puppy.gif" width="44" height="44" alt="" class="milo-avatar milo-puppy-avatar"></picture><div><h2 id="milo-chat-title">Milo nhỏ 🐾</h2><p>AI date buddy · a little woof, a lot of love.</p></div><button id="milo-chat-close" type="button" aria-label="Thu gọn trò chuyện với Milo">×</button></header>
+        <div class="milo-chat-tools"><p id="milo-chat-context">Cùng Amy chọn một ngày xinh ♡</p><button id="milo-chat-reset" type="button">Chat mới ↻</button></div>
+        <div id="milo-chat-messages" class="milo-chat-messages" role="log" aria-label="Trò chuyện với AI Milo" aria-live="polite" aria-relevant="additions text"></div>
+        <div id="milo-chat-typing" class="milo-chat-typing" hidden><span class="milo-typing-paws" aria-hidden="true">🐾</span><span>Milo đang ngó giúp Amy nè…</span><button id="milo-chat-stop" type="button">Dừng</button></div>
+        <div id="milo-chat-suggestions" class="milo-chat-suggestions" aria-label="Gợi ý câu hỏi"></div>
+        <form id="milo-chat-form" class="milo-chat-form"><label class="milo-sr-only" for="milo-chat-input">Amy muốn hỏi Milo điều gì?</label><textarea id="milo-chat-input" rows="1" maxlength="2000" placeholder="Hỏi Milo nè…" enterkeyhint="send" required></textarea><button id="milo-chat-send" type="submit" aria-label="Gửi tin nhắn cho Milo">Gửi ♡</button></form>
+        <p class="milo-chat-note">AI Milo dùng OpenAI để trả lời tin nhắn & lựa chọn Amy gửi.<br>Anh gợi ý thôi, Amy vẫn là người chọn nha ♡</p>
+    </section>
+</body>
+</html>

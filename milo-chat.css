@@ -1,0 +1,87 @@
+.milo-teaser { display: flex; align-items: center; gap: 12px; margin: -7px 0 28px; padding: 14px 17px; border: 1px solid #efd6de; border-radius: 18px; background: linear-gradient(115deg, #fff1f4, #fff9ef); box-shadow: 0 5px 20px #ab627209; }
+.milo-avatar { flex-shrink: 0; border-radius: 50%; border: 2px solid white; object-fit: cover; background: #f5dee4; box-shadow: 0 3px 10px #a5547415; }
+.milo-teaser > div { flex: 1; min-width: 0; }
+.milo-teaser strong { font: 700 14px/1.5 'Quicksand', sans-serif; color: #a34570; }
+.milo-teaser p { font-size: 11px; line-height: 1.6; margin: 4px 0 0; color: #966d7f; }
+.milo-open-button, .milo-chat-launcher { color: #fff9fc; border: 1px solid #bc4876; background: linear-gradient(125deg, #de7da3, #ba3f73); cursor: pointer; font: 700 12px 'Quicksand', sans-serif; box-shadow: 0 5px 15px #ad4a7322, inset 0 1px 0 #ffffff6b; }
+.milo-open-button { border-radius: 99px; padding: 12px 17px; min-height: 44px; white-space: nowrap; }
+.milo-chat-launcher { position: fixed; z-index: 40; right: 22px; bottom: 80px; display: flex; align-items: center; gap: 9px; padding: 7px 15px 7px 7px; border-radius: 99px; }
+.milo-chat-launcher img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid #ffffffa6; }
+.milo-online-dot { width: 7px; height: 7px; background: #ffe4a7; border-radius: 50%; border: 1px solid #fff4d4; }
+.milo-chat-launcher:hover, .milo-open-button:hover { filter: brightness(1.04); }
+.milo-chat-launcher.milo-puppy { width: 104px; height: 116px; display: flex; flex-direction: column; justify-content: flex-start; gap: 0; padding: 0; border: 0; border-radius: 22px; background: transparent; box-shadow: none; color: #9b5073; touch-action: manipulation; }
+.milo-puppy-label { position: relative; z-index: 2; flex-shrink: 0; margin: 0 auto -4px; padding: 5px 8px; border: 1px solid #e7bed1; border-radius: 12px 12px 4px 12px; background: #fff9f6f5; box-shadow: 0 3px 12px #9d587a13; white-space: nowrap; font: 700 10px/1.5 'Quicksand', sans-serif; }
+.milo-puppy-picture { position: relative; display: block; width: 88px; height: 88px; z-index: 1; pointer-events: none; }
+.milo-chat-launcher .milo-puppy-sprite { display: block; width: 100%; height: 100%; border: 0; border-radius: 0; object-fit: contain; filter: drop-shadow(0 3px 3px #8e53782b); }
+.milo-puppy-shadow { position: absolute; width: 45px; height: 7px; border-radius: 50%; bottom: 2px; background: #a25e7e20; filter: blur(2px); pointer-events: none; }
+.milo-chat-launcher.milo-puppy:focus-visible { outline: 3px solid #a44072; outline-offset: 3px; }
+.milo-puppy-avatar { object-fit: contain; background: #fff9f6; }
+.milo-chat-panel { position: fixed; z-index: 50; right: 22px; bottom: 80px; width: 390px; max-width: calc(100vw - 24px); height: min(660px, calc(100dvh - 108px)); min-height: 300px; display: flex; flex-direction: column; overflow: hidden; border: 1px solid #e7b6ca; border-radius: 24px; background: #fffcfa; box-shadow: 0 18px 70px #83456536, 0 0 0 5px #fff8fa69; animation: milo-pop .3s ease both; }
+.milo-chat-header { display: flex; align-items: center; gap: 11px; flex: 0 0 auto; padding: 15px; background: linear-gradient(110deg, #fbe2eb, #fff0e8); border-bottom: 1px solid #ecd3dd; }
+.milo-chat-header > div { min-width: 0; flex: 1; }
+.milo-chat-header h2 { color: #a23e6b; margin: 0; font: 700 19px/1.4 'Quicksand', sans-serif; }
+.milo-chat-header p { color: #a36f86; font-size: 10px; line-height: 1.5; margin: 3px 0 0; }
+#milo-chat-close { flex: 0 0 40px; min-height: 40px; border-radius: 50%; border: 1px solid #e6baca; background: #fff9f9ab; color: #a14b70; font: 24px/1 system-ui, sans-serif; cursor: pointer; }
+.milo-chat-tools { display: flex; align-items: center; gap: 10px; padding: 8px 15px; background: #fff8f5; border-bottom: 1px solid #f0e0e5; }
+#milo-chat-context { flex: 1; min-width: 0; color: #a26a80; font-size: 10px; line-height: 1.6; margin: 0; }
+#milo-chat-reset { background: transparent; border: 0; min-height: 32px; padding: 4px 0; color: #a94c76; font: 700 10px 'Quicksand', sans-serif; cursor: pointer; white-space: nowrap; }
+.milo-chat-messages { flex: 1 1 0; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 17px 14px 7px; scrollbar-width: thin; scrollbar-color: #e7b7cb #fff7f7; }
+.milo-message { max-width: 94%; margin: 0 auto 15px 0; animation: milo-message-in .2s ease both; }
+.milo-message.user { margin-left: auto; margin-right: 0; max-width: 90%; }
+.milo-message-name { display: block; font: 700 10px 'Quicksand', sans-serif; color: #b37690; margin: 0 7px 5px; }
+.milo-message.user .milo-message-name { text-align: right; }
+.milo-message-body { color: #795169; font-size: 13px; line-height: 1.8; border-radius: 4px 17px 17px; padding: 12px 14px; background: #fff1f5; border: 1px solid #f0dce4; overflow-wrap: anywhere; white-space: pre-wrap; }
+.milo-message.user .milo-message-body { border-radius: 17px 4px 17px 17px; background: #ba4979; border-color: #ba4979; color: white; }
+.milo-message-body a { color: #a82f65; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.milo-message-body .milo-citation { display: inline; margin: 0 2px; font-weight: 700; color: #983461; }
+.milo-message-body > div + div { margin-top: 10px; }
+.milo-message-meta { display: block; margin: 6px 7px 0; color: #aa7f93; font-size: 9px; line-height: 1.6; }
+.milo-sources { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+.milo-sources a { border: 1px solid #ecd4df; border-radius: 8px; background: #fffaf9; padding: 6px 8px; color: #9b5074; font-size: 10px; line-height: 1.5; text-decoration: none; max-width: 100%; overflow-wrap: anywhere; }
+.milo-error .milo-message-body { border-style: dashed; background: #fff6ee; }
+.milo-retry { display: block; margin-top: 8px; border: 1px solid #dfb7ca; background: #fffafa; border-radius: 99px; color: #a74e74; padding: 8px 12px; min-height: 36px; font: 700 11px 'Quicksand', sans-serif; cursor: pointer; }
+.milo-chat-typing { display: flex; gap: 8px; align-items: center; margin: 0 16px 10px; color: #b16c8b; font-size: 11px; flex: 0 0 auto; }
+.milo-typing-paws { display: inline-block; animation: milo-paws 1s ease-in-out infinite; }
+#milo-chat-stop { background: transparent; border: 0; padding: 6px; margin-left: auto; color: #a85377; cursor: pointer; font-size: 11px; min-height: 32px; }
+.milo-chat-suggestions { display: flex; flex-wrap: wrap; gap: 6px; padding: 5px 14px 10px; flex: 0 0 auto; }
+.milo-chat-suggestions button { min-height: 32px; border: 1px solid #eacbda; border-radius: 99px; background: #fffaf8; padding: 6px 10px; color: #a05377; font: 700 10px/1.6 'Quicksand', sans-serif; cursor: pointer; }
+.milo-chat-suggestions button:hover { background: #fcecf3; }
+.milo-chat-suggestions button:disabled { opacity: .5; cursor: default; }
+.milo-chat-form { display: flex; gap: 8px; align-items: flex-end; flex: 0 0 auto; padding: 11px 13px 7px; margin: 0; border-top: 1px solid #eedbe3; }
+#milo-chat-input { flex: 1; width: 0; resize: none; min-height: 44px; max-height: 100px; padding: 12px; border: 1px solid #e8c9d7; border-radius: 16px; background: white; color: #78526a; font: 14px/1.5 system-ui, sans-serif; }
+#milo-chat-input::placeholder { color: #af8b9c; }
+#milo-chat-send { min-height: 44px; border: 1px solid #b14270; border-radius: 14px; background: linear-gradient(120deg, #dc77a1, #ba3e73); color: white; padding: 10px 13px; font: 700 12px 'Quicksand', sans-serif; cursor: pointer; }
+#milo-chat-send:disabled { opacity: .5; cursor: default; }
+.milo-chat-note { flex: 0 0 auto; color: #a87e91; font-size: 9px; line-height: 1.6; text-align: center; padding: 0 12px 11px; margin: 0; }
+.milo-chat-panel :is(button, a, textarea), .milo-open-button, .milo-chat-launcher { -webkit-tap-highlight-color: #edbed155; }
+.milo-sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@keyframes milo-pop { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes milo-message-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes milo-paws { 0%, 100% { transform: rotate(-10deg) translateY(0); } 50% { transform: rotate(10deg) translateY(-3px); } }
+@media (max-width: 700px) {
+    .milo-teaser { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; padding: 13px; margin-bottom: 25px; }
+    .milo-teaser > picture { grid-column: 1; grid-row: 1; }
+    .milo-teaser > div { grid-column: 2; grid-row: 1; }
+    .milo-teaser .milo-avatar { width: 44px; height: 44px; }
+    .milo-teaser strong { font-size: 12px; }
+    .milo-teaser p { font-size: 10px; }
+    .milo-teaser .milo-open-button { grid-column: 2; justify-self: start; margin-left: 0; padding: 10px 17px; font-size: 11px; }
+    .milo-chat-launcher { right: 13px; bottom: 16px; padding-right: 13px; font-size: 11px; }
+    .milo-chat-launcher.milo-puppy { width: 84px; height: 98px; right: 12px; bottom: 76px; padding: 0; }
+    .milo-puppy-label { font-size: 9px; padding: 4px 6px; }
+    .milo-puppy-picture { width: 72px; height: 72px; }
+    .milo-puppy-shadow { width: 34px; }
+    .milo-chat-panel { right: 12px; bottom: var(--milo-keyboard-inset, 12px); width: calc(100vw - 24px); height: min(660px, calc(var(--milo-visible-height, 100dvh) - 24px)); max-height: calc(var(--milo-visible-height, 100dvh) - 24px); min-height: 0; border-radius: 22px; }
+    .milo-chat-header { padding: 12px; }
+    .milo-chat-header p { font-size: 9px; }
+    .milo-chat-header h2 { font-size: 18px; }
+    .milo-chat-messages { padding: 14px 11px 6px; }
+    .milo-message-body { font-size: 13px; padding: 11px 12px; }
+    #milo-chat-input { font-size: 16px; }
+    .milo-chat-note { font-size: 9px; }
+    .planner-page #music-toggle.heart-music { left: 14px; right: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .milo-chat-panel, .milo-message, .milo-typing-paws { animation: none; }
+    .milo-chat-launcher.milo-puppy { transform: none !important; left: auto !important; top: auto !important; right: 16px; bottom: 80px; }
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="auth.js"></script>
+    <script>AmyAuth.require()</script>
+    <title>Amy coá mún đii first date với anh hônggggg 💗 💗</title>
+    <link rel="preload" href="fonts/Quicksand-Bold.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="romance.css">
+    <link rel="stylesheet" href="love-magic.css">
+    <script src="heart-music.js" defer></script>
+    <script src="heart-frame.js" defer></script>
+    <script src="love-magic.js" defer></script>
+</head>
+<body class="invite-page">
+    <div class="love-garden" aria-hidden="true"></div>
+    <canvas id="invitation-hearts" class="invitation-heart-frame" aria-hidden="true"></canvas>
+
+    <div class="container">
+        <p class="love-eyebrow">Dành riêng cho Amy 💌</p>
+        <h1 class="date-question"><span class="question-line"><span class="question-name">Amy</span> coá mún đii <span class="question-date">first date</span></span> <span class="question-line">với anh hônggggg <span class="question-hearts">💗 💗</span></span></h1>
+        <p class="invitation-subtitle">Một chiếc hẹn nhỏ, dành cho cô gái thật đặc biệt.</p>
+
+        <div class="gif-container" role="group" aria-label="Những bé xinh cổ vũ cho buổi hẹn của Amy và Milo">
+            <img id="cat-gif" class="reaction-gif" src="gifs/guitar_usagi.gif" width="200" height="200" alt="Usagi chơi guitar tặng Amy">
+            <img id="companion-gif" class="reaction-gif" src="gifs/chiikawa-hachiware.gif" width="200" height="200" alt="Chiikawa và Hachiware bên nhau">
+        </div>
+
+        <div class="buttons">
+            <button id="yes-btn" onclick="handleYesClick()">Cóoo 💗</button>
+            <button id="no-btn" onclick="handleNoClick()">Để Amy nghĩ xíu 🥺</button>
+        </div>
+        <div id="tease-toast" role="status" aria-live="polite"></div>
+        <p class="invitation-signature">a little courage, a lot of love. ♡</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

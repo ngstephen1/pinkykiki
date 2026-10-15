@@ -1,0 +1,50 @@
+.date-review { max-width: 700px; margin: 26px auto; padding: 23px 25px; text-align: left; border: 1px solid #ebcddc; border-radius: 21px; background: linear-gradient(125deg, #fff8f3, #fff1f7); }
+.review-heading { display: flex; align-items: center; gap: 12px; }
+.review-heading img { flex: 0 0 48px; }
+.review-kicker { color: #a96683; font-size: 10px; letter-spacing: .7px; margin: 0 0 6px; }
+.review-heading h3 { color: #934765; font: 700 20px/1.4 'Quicksand', sans-serif; margin: 0; }
+.review-heading span { color: #996a7e; font-size: 10px; }
+.review-status { color: #9c5375; font: 700 12px/1.8 'Quicksand', sans-serif; margin: 15px 0 0; }
+.review-comment { white-space: pre-line; overflow-wrap: anywhere; color: #825166; font-size: 13px; line-height: 1.9; margin: 14px 0; }
+.review-comment a { color: #ab4676; text-underline-offset: 3px; }
+.review-sources { display: flex; gap: 7px; flex-wrap: wrap; margin: 12px 0; }
+.review-sources a { color: #a44973; background: #fffcfa; border: 1px solid #ead1dd; border-radius: 9px; padding: 7px 9px; font-size: 10px; line-height: 1.5; max-width: 100%; overflow-wrap: anywhere; text-underline-offset: 3px; }
+.review-actions { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-top: 16px; }
+.review-actions .love-button { font-size: 12px; padding: 12px 17px; }
+.review-note, .review-apply-note { color: #94687b; font-size: 11px; line-height: 1.8; margin: 13px 0 0; }
+.review-dialog { width: min(700px, calc(100% - 32px)); max-width: 700px; max-height: calc(100dvh - 40px); color: #825166; padding: 0; border: 1px solid #edcada; border-radius: 25px; background: #fffaf7; box-shadow: 0 25px 90px #5d233b40; overscroll-behavior: contain; }
+.review-dialog[open] { animation: review-entrance .28s ease both; }
+.review-dialog::backdrop { background: #532c456e; backdrop-filter: blur(5px); }
+.review-dialog-body { position: relative; padding: 34px; }
+.review-dialog-body > .review-kicker { padding-right: 28px; }
+.review-dialog h2 { font: 700 27px/1.4 'Quicksand', sans-serif; color: #ad3d71; margin: 8px 0 12px; }
+.review-dialog-intro { color: #9c7486; font-size: 12px; line-height: 1.8; }
+.review-close { position: absolute; right: 12px; top: 12px; border: 1px solid #efd6df; border-radius: 50%; width: 38px; height: 38px; background: #fff1f4; color: #a54c76; font: 24px/1 system-ui; cursor: pointer; }
+.review-proposal { background: #fff0f5; padding: 20px; border: 1px solid #edcedb; border-radius: 17px; margin-top: 22px; }
+.review-proposal h3 { color: #a14a72; font: 700 20px/1.5 'Quicksand', sans-serif; margin: 0 0 9px; overflow-wrap: anywhere; }
+#review-proposal-reason { font-size: 12px; line-height: 1.9; white-space: pre-line; overflow-wrap: anywhere; margin: 0 0 16px; }
+.review-change + .review-change { border-top: 1px dashed #e8c7d5; margin-top: 15px; padding-top: 15px; }
+.review-change h4 { color: #9c4c6e; font: 700 12px/1.6 'Quicksand', sans-serif; margin: 0 0 9px; }
+.review-change-values { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.review-change-values > div { padding: 12px; border: 1px solid #edd8e1; border-radius: 10px; background: #fffaf8; min-width: 0; }
+.review-change-values > div:last-child { background: #fff; border-color: #dba1bb; }
+.review-change-values small { display: block; color: #a77e90; font-size: 10px; margin-bottom: 5px; }
+.review-change-values p { color: #85526a; font-size: 12px; line-height: 1.8; margin: 0; overflow-wrap: anywhere; }
+.review-dialog-actions { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 23px; }
+.review-dialog-actions .love-button { font-size: 13px; padding: 14px 21px; white-space: normal; }
+.review-dialog button:focus-visible, .date-review button:focus-visible, .review-sources a:focus-visible { outline: 3px solid #a44072; outline-offset: 4px; }
+@keyframes review-entrance { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@media (max-width: 700px) {
+    .date-review { padding: 19px 16px; border-radius: 17px; }
+    .review-heading h3 { font-size: 18px; }
+    .review-dialog { width: calc(100% - 20px); max-height: calc(100dvh - 24px); border-radius: 21px; }
+    .review-dialog-body { padding: 28px 18px 22px; }
+    .review-dialog h2 { font-size: 24px; }
+    .review-proposal { padding: 15px 12px; }
+    .review-proposal h3 { font-size: 18px; }
+    .review-change-values { grid-template-columns: 1fr; gap: 7px; }
+    .review-dialog-actions { flex-direction: column; align-items: stretch; }
+    .review-dialog-actions .love-button { font-size: 12px; padding: 14px 11px; }
+    .review-comment { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .review-dialog[open] { animation: none; } }

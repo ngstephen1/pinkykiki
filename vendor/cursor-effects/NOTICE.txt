@@ -1,0 +1,33 @@
+The fairy-dust particle trail in love-magic.js is adapted from:
+Tim Holman / cursor-effects, src/fairyDustCursor.js
+https://github.com/tholman/cursor-effects
+https://github.com/tholman/cursor-effects/blob/master/src/fairyDustCursor.js
+
+Upstream package.json declares version 1.0.18 and license MIT. Its readme also
+declares the project MIT. Retrieved October 15, 2026. No remote script is loaded.
+
+Local changes: canvas vector shapes and rose/gold palette; click hearts;
+scroll-edge petals and section reveals; time-based updates and particle caps;
+idle/background suspension; touch, text-input, game/map and motion guards.
+
+MIT License
+
+Copyright (c) Tim Holman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.

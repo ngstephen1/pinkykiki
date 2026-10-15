@@ -1,0 +1,12 @@
+.git
+.env
+.env.*
+!.env.example
+node_modules
+dist
+output
+tmp
+coverage
+server/milo-personal.md
+*.log
+.DS_Store

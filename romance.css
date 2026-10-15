@@ -1,0 +1,83 @@
+@font-face { font-family: 'Quicksand'; src: url('fonts/Quicksand-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+:root { --love-ink: #714552; --love-pink: #c24779; --love-muted: #967580; --love-line: #edd8df; }
+[hidden] { display: none !important; }
+.romance-page { margin: 0; min-height: 100vh; min-height: 100svh; color: var(--love-ink); font-family: 'Nunito', system-ui, sans-serif; background: radial-gradient(ellipse at 5% 5%, #fbd4e2b0, transparent 48%), radial-gradient(ellipse at 95% 95%, #f7d9de, transparent 45%), #fff7f5; }
+.love-garden { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.love-garden::before, .love-garden::after { content: ''; position: absolute; width: clamp(150px, 24vw, 320px); aspect-ratio: 260 / 280; background: url('assets/floral-spray.svg') center / contain no-repeat; opacity: .8; }
+.love-garden::before { left: -25px; top: -32px; transform: rotate(15deg); transform-origin: left top; animation: flower-sway 9s ease-in-out infinite; }
+.love-garden::after { right: -25px; bottom: -32px; transform: rotate(195deg); transform-origin: right bottom; animation: flower-sway 11s ease-in-out -4s infinite; }
+@keyframes flower-sway { 0%, 100% { rotate: -1deg; } 50% { rotate: 2deg; } }
+.love-garden span { position: absolute; top: 105%; left: var(--x); color: #d886a8; font-size: var(--size, 18px); opacity: 0; animation: love-drift var(--duration, 17s) linear infinite; animation-delay: var(--delay, 0s); }
+@keyframes love-drift { 0% { translate: 0 0; rotate: 0deg; opacity: 0; } 12%, 75% { opacity: .35; } 100% { translate: 30px -120vh; rotate: 100deg; opacity: 0; } }
+.love-eyebrow { display: inline-flex; align-items: center; gap: 8px; border: 1px solid #edcbd8; border-radius: 99px; background: #fff8f9c9; padding: 8px 16px; color: #aa5279; font-size: 12px; font-weight: 700; letter-spacing: .7px; }
+.love-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 13px 24px; border: 1px solid #ba3e70; border-radius: 99px; background: linear-gradient(120deg, #d75a8b, #bd3b70); box-shadow: 0 6px 18px #b93f7024; color: white; font: 700 15px 'Quicksand', sans-serif; text-decoration: none; cursor: pointer; transition: transform .2s, box-shadow .2s; }
+.love-button:hover { transform: translateY(-2px); box-shadow: 0 9px 22px #b93f7036; }
+.love-button:disabled { opacity: .45; cursor: default; transform: none; box-shadow: none; }
+.love-button.secondary { color: #a45174; background: #fff9fa; border-color: #e9cbd7; box-shadow: none; }
+.romance-page :is(button, a, input, textarea):focus-visible { outline: 3px solid #aa2e64; outline-offset: 4px; }
+.invite-page { min-height: 100svh; overflow-x: hidden; overflow-y: auto; }
+.invitation-heart-frame { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: transparent; }
+.invite-page .container { width: min(100%, 980px); padding: 42px 20px 70px; animation: invitation-reveal 1s ease both; }
+.invite-page .love-eyebrow { margin-bottom: 22px; }
+.invite-page .invitation-subtitle { margin: -9px 0 25px; color: #ab6a85; font-size: 13px; line-height: 1.7; }
+.invite-page .invitation-signature { color: #a96681; font-size: 11px; letter-spacing: .5px; margin-top: 15px; }
+.invite-page #tease-toast { font-size: 13px; line-height: 1.6; }
+.invite-page button:focus-visible { outline: 3px solid #a12968; outline-offset: 5px; }
+@keyframes invitation-reveal { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 600px) {
+    .love-garden::before, .love-garden::after { opacity: .5; width: 155px; }
+    .love-garden::before { left: -40px; top: -40px; }
+    .love-garden::after { right: -40px; bottom: -40px; }
+    .invite-page .container { padding: 36px 20px 86px; }
+    .invite-page .love-eyebrow { font-size: 10px; margin-bottom: 20px; }
+    .invite-page .invitation-subtitle { font-size: 11px; }
+    .invite-page .invitation-signature { font-size: 10px; }
+    .invite-page #music-toggle { width: 44px; height: 44px; right: 14px; bottom: 14px; font-size: 1.2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    .love-garden span { opacity: .2; top: 15%; }
+}
+
+/* Soft candy buttons across the story; the pixel game's arrow art stays intact. */
+.invite-page #yes-btn {
+    position: relative; isolation: isolate; overflow: hidden;
+    border: 1px solid #c0477b; border-radius: 999px;
+    background: linear-gradient(125deg, #ec86ae, #d45388 55%, #b63873);
+    color: #fffafd; font-family: 'Quicksand', sans-serif; letter-spacing: 0;
+    box-shadow: 0 8px 22px #bc3b7440, inset 0 2px 0 #ffffff69, 0 0 0 4px #ffffff38;
+}
+.invite-page #yes-btn::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(110deg, transparent 20%, #fff5 45%, transparent 70%);
+    transform: translateX(-130%); transition: transform .65s ease;
+}
+.invite-page #yes-btn:hover::before { transform: translateX(130%); }
+.invite-page #yes-btn:hover { box-shadow: 0 12px 28px #b8327652, inset 0 2px 0 #ffffff75, 0 0 0 4px #ffffff50; }
+.invite-page #no-btn { border: 1px solid #e5a8c1; border-radius: 999px; background: linear-gradient(140deg, #fff8fa, #fce6ee); color: #ae5278; box-shadow: 0 5px 14px #b8587c1c, inset 0 1px 0 #fff; font-family: 'Quicksand', sans-serif; }
+.invite-page #no-btn:hover { background: linear-gradient(140deg, #fffafb, #f8d6e4); }
+.love-button { background: linear-gradient(125deg, #df78a2, #c34b80); box-shadow: 0 7px 19px #b93f702c, inset 0 1px 0 #ffffff70; }
+.love-button:active { transform: translateY(0) scale(.98); }
+.love-button.secondary { box-shadow: inset 0 1px 0 white, 0 3px 10px #b93f7009; }
+#music-toggle.heart-music {
+    position: fixed; z-index: 30; right: 20px; bottom: 18px; display: inline-flex;
+    align-items: center; justify-content: center; gap: 8px;
+    width: auto; height: auto; min-height: 44px; padding: 10px 16px; margin: 0;
+    border: 1px solid #fff6e9ba; border-radius: 99px;
+    background: linear-gradient(130deg, #fffaf1ed, #ffedf1e6); color: #b16c7f;
+    box-shadow: 0 4px 18px #68404b1a, inset 0 1px 0 #fff;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    font: 700 10px 'Quicksand', sans-serif; cursor: pointer; filter: none;
+    pointer-events: auto; transition: transform .2s;
+}
+.heart-music .music-symbol { font-size: 20px; line-height: 1; }
+.heart-music[aria-pressed="true"] .music-symbol { animation: music-waltz 1.5s ease-in-out infinite; }
+#music-toggle.heart-music:focus-visible { outline: 3px solid #a44d74; outline-offset: 4px; }
+@keyframes music-waltz { 0%, 100% { rotate: -12deg; } 50% { rotate: 12deg; } }
+@media (max-width: 600px) {
+    .romance-page, .invite-page { position: relative; }
+    #music-toggle.heart-music { position: absolute; right: 14px; bottom: 14px; padding: 10px 13px; }
+    .invite-page, .planner-page { padding-bottom: 78px; }
+    .planner-page.romance-page { padding-bottom: 78px; }
+    .game-layout { padding-bottom: 85px; }
+}

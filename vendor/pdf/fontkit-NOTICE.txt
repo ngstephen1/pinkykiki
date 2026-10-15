@@ -1,0 +1,8 @@
+@pdf-lib/fontkit 1.1.1
+License: MIT, as declared in the upstream package metadata and README.
+Package author: Andrew Dillon <andrew.dillon.j@gmail.com>
+Upstream: https://github.com/Hopding/fontkit
+Distribution: https://unpkg.com/@pdf-lib/fontkit@1.1.1/
+Based on Fontkit, https://github.com/foliojs/fontkit (MIT).
+
+The vendored minified distribution is unmodified.

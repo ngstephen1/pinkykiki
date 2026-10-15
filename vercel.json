@@ -1,0 +1,28 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "fluid": true,
+  "functions": {
+    "api/milo.js": {
+      "maxDuration": 90,
+      "includeFiles": "{date-options.js,server/milo-context.md}",
+      "excludeFiles": "{assets,fonts,gifs,login,music,vendor,tests,scripts,dist,output,tmp}/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/milo/:action", "destination": "/api/milo?action=:action" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    }
+  ]
+}
