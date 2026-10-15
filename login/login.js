@@ -18,6 +18,7 @@ hint.addEventListener('click', () => {
 })
 form.addEventListener('submit', event => {
     event.preventDefault()
+    if (document.getElementById('btn').disabled) return
     window.HeartMusic?.tryPlay()
     if (!window.AmyAuth.login(username.value, password.value)) {
         error.textContent = 'Milo hong nhận ra mật mã này rùi 🥺 Amy thử lại xíu nha.'
@@ -28,6 +29,15 @@ form.addEventListener('submit', event => {
     }
     password.removeAttribute('aria-invalid')
     error.textContent = 'Đúng cô gái Milo đang chờ rồiii 💗'
+    document.getElementById('btn').disabled = true
+    // Follow this tab across navigation, including when browser storage is blocked.
+    window.AmyAuth.setTabFlag('curtainReveal', true)
     window.location.assign(window.AmyAuth.invitationURL)
 })
 form.addEventListener('input', () => { error.textContent = ''; password.removeAttribute('aria-invalid') })
+// Back navigation can restore the submitted form from the browser's page cache.
+window.addEventListener('pageshow', event => {
+    if (!event.persisted) return
+    document.getElementById('btn').disabled = false
+    error.textContent = ''
+})

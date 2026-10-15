@@ -1,0 +1,30 @@
+/* The invitation waits behind two rose curtains, just after a successful login. */
+.welcome-curtain { display: none; }
+.curtain-pending { overflow: hidden; }
+.curtain-pending .welcome-curtain { display: block; position: fixed; inset: 0; z-index: 1000; overflow: hidden; touch-action: none; }
+.curtain-pending .container { animation: none; }
+.curtain-panel {
+    position: absolute; top: 0; bottom: 0; width: calc(50% + 2px);
+    background-color: #c97091;
+    background-image: linear-gradient(180deg, #6c294f30, transparent 22%, #ffe3ec12 65%, #73264c30),
+        repeating-linear-gradient(90deg, #a94870 0%, #d27c9b 5%, #efb1c6 9%, #d987a4 13%, #b4527a 18%, #a94870 22%);
+    box-shadow: inset 0 8px 28px #73345238;
+    will-change: transform;
+}
+.curtain-left { left: 0; border-right: 2px solid #ffe1b7bf; box-shadow: inset -12px 0 20px #71305124, 10px 0 30px #71305126; }
+.curtain-right { right: 0; border-left: 2px solid #ffe1b7bf; box-shadow: inset 12px 0 20px #71305124, -10px 0 30px #71305126; }
+.curtain-panel::after { content: ''; position: absolute; bottom: -4%; width: min(65%, 330px); aspect-ratio: 260 / 280; background: url('assets/floral-spray.svg') center / contain no-repeat; opacity: .3; filter: sepia(.2) brightness(1.35); }
+.curtain-left::after { left: -5%; rotate: -12deg; }
+.curtain-right::after { right: -5%; transform: scaleX(-1); rotate: 12deg; }
+.curtain-heart { position: absolute; top: 19%; color: #ffe6d9b3; font: clamp(38px, 6vw, 70px)/1 'Quicksand', sans-serif; text-shadow: 0 1px 2px #9d4b6770; }
+.curtain-left .curtain-heart { right: 22%; rotate: -12deg; }
+.curtain-right .curtain-heart { left: 22%; rotate: 12deg; }
+.curtain-note { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; color: #fff3e7; font: 700 clamp(12px, 2vw, 15px) 'Quicksand', sans-serif; letter-spacing: 1px; text-shadow: 0 2px 9px #8d3c6370; }
+.curtain-seal { display: grid; place-items: center; width: 80px; height: 80px; border: 1px solid #ffe0bba6; border-radius: 50%; background: #c56586; box-shadow: 0 5px 25px #84375e33, inset 0 0 0 5px #ffe5c91f; font-size: 46px; letter-spacing: 0; }
+.curtain-opening .curtain-left { animation: amy-curtain-left 1.65s cubic-bezier(.65, 0, .25, 1) both; }
+.curtain-opening .curtain-right { animation: amy-curtain-right 1.65s cubic-bezier(.65, 0, .25, 1) both; }
+.curtain-opening .curtain-note { animation: amy-curtain-note .5s ease both; }
+@keyframes amy-curtain-left { to { transform: translateX(-105%); } }
+@keyframes amy-curtain-right { to { transform: translateX(105%); } }
+@keyframes amy-curtain-note { to { opacity: 0; scale: .94; } }
+@media (prefers-reduced-motion: reduce) { .curtain-pending .welcome-curtain { display: none; } }
