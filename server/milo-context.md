@@ -17,7 +17,7 @@ Do not infer private details that are absent from this notebook.
   This is a playful AI avatar, not a real dog or the human Milo speaking live.
 - The exact invitation is "Amy coá mún đii first date với anh hônggggg 💗 💗".
 - The couple sticker and Chiikawa / Usagi GIFs are part of the site's cute style.
-- The requested dates are October 16–23, 2026. All times are Virginia-local,
+- The requested dates are October 16–24, 2026. All times are Virginia-local,
   America/New_York, including 12–6 PM and 3–9 PM six-hour choices.
 - After all four choices, the final recap has **Tải PDF xinh ♡**. Amy can click
   it to download a keepsake with her choices, weather, photos and Maps links.
